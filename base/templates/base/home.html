@@ -63,6 +63,23 @@
         </div>
     </div>
 
+    <div>
+        {% if recommendations %}
+        <h2>Music Recommendations</h2>
+        <ul>
+            {% for song in recommendations %}
+            <li>
+                <strong>{{ song.song }}</strong> by {{ song.artist }}
+                <a href="{{ song.url }}" target="_blank">Listen</a>
+                {% if song.image %}
+                <br><img src="{{ song.image }}" alt="{{ song.song }}" width="100">
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
 
 </div>
 

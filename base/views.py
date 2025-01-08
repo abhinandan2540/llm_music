@@ -2,10 +2,12 @@ import re
 from django.shortcuts import render
 import os
 import google.generativeai as genai
+import requests
 from dotenv import load_dotenv
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+LASTFM_API = os.getenv("LASTFM_API")
 
 
 def clean_text(text):
@@ -29,12 +31,35 @@ def clean_text(text):
     return '\n'.join(formatted_text)
 
 
+def get_details_withfm(genres):
+    recomendation_songs = []
+
+    for genre in genres:
+        url = f'''http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag={
+            genre}&api_key={LASTFM_API}&format=json'''
+        response = requests.get(url)
+        data = response.json()
+
+        if "toptracks" in data:
+            for track in data["toptracks"]["track"]:
+                recomendation_songs.append({
+                    'song': track["name"],
+                    'artist': track["artist"]["name"],
+                    'url': track["url"],
+                    'image': track["image"][3]["#text"] if track["image"] else None
+                })
+
+    return recomendation_songs
+
+
 def home(request):
+    recomendation_songs = []
     generated_content = []
     user_search_query = request.POST.get("user_search_query", "").strip()
     user_selected_genre = request.POST.getlist("genre")
 
     if user_search_query or user_selected_genre:
+
         genai.configure(api_key=GEMINI_API_KEY)
         model = genai.GenerativeModel("gemini-1.5-flash")
 
@@ -49,7 +74,12 @@ def home(request):
         formatted_content = clean_text(str(response.text))
         generated_content.append(formatted_content)
 
-    context = {"result": generated_content}
+        if user_selected_genre:
+            recomendation_songs = get_details_withfm(user_selected_genre)
+
+    context = {"result": generated_content,
+               "recomendations": recomendation_songs}
+
     return render(request, 'base/home.html', context)
 
 
