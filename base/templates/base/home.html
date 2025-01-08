@@ -5,9 +5,12 @@
 {% block content %}
 
 <div>
+    <!-- music genre content -->
     <div>
         <h1>LLM Music Recomendation Model</h1>
-        <form action="" method="" id="user_checkbox">
+        <form action="{% url 'homePage' %}" method="POST" id="user_checkbox">
+            {% csrf_token %}
+
             <label>
                 <input type="checkbox" name="genre" value="rock" id="rock_checkbox">
                 <span>Rock</span>
@@ -40,17 +43,27 @@
                 <input type="checkbox" name="genre" value="punjabi" id="punjabi_checkbox">
                 <span>Punjabi</span>
             </label>
+            <hr>
+
+            <input type="text" placeholder="your message..." name="user_search_query" id="user_search_query_bar">
+
         </form>
     </div>
 
 
-    <div id="gemini_message_searchbar">
-        <form action="">
-            {% csrf_token %}
-
-            <input type="text" placeholder="your message...">
-        </form>
+    <div>
+        <div>
+            {% if result %}
+            <div>
+                {% for line in result %}
+                <p>{{ line|safe }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
     </div>
+
+
 </div>
 
 
