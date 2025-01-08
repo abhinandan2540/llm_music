@@ -1,6 +1,9 @@
 from django.shortcuts import render
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-# Create your views here.
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
 def home(request):

@@ -5,7 +5,52 @@
 {% block content %}
 
 <div>
-    <h1>Home page</h1>
+    <div>
+        <h1>LLM Music Recomendation Model</h1>
+        <form action="" method="" id="user_checkbox">
+            <label>
+                <input type="checkbox" name="genre" value="rock" id="rock_checkbox">
+                <span>Rock</span>
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="pop" id="pop_checkbox">
+                <span>Pop</span>
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="jazz" id="jazz_checkbox">
+                <span>Jazz</span>
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="classical" id="classical_checkbox">
+                <span>Classical</span>
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="hiphop" id="hiphop_checkbox">
+                <span>Hip-Hop</span>
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="electronic" id="electronic_checkbox">
+                <span>Electronic</span>
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="bollywood" id="bollywood_checkbox">
+                <span>Bollywood</span>
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="punjabi" id="punjabi_checkbox">
+                <span>Punjabi</span>
+            </label>
+        </form>
+    </div>
+
+
+    <div id="gemini_message_searchbar">
+        <form action="">
+            {% csrf_token %}
+
+            <input type="text" placeholder="your message...">
+        </form>
+    </div>
 </div>
 
 
