@@ -2,28 +2,69 @@ form {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
+
 }
 
 label {
-    border: 2px solid black;
+    border: 2px solid white;
     padding: 10px;
     height: 50px;
+    border-radius: 5px;
+
 
 }
 
 label span {
     font-size: 20px;
+    color: whitesmoke;
+    font-weight: 700;
 }
 
 input[type="checkbox"] {
     transform: scale(1.5);
+    cursor: pointer;
 }
+
+input[type="checkbox"]:checked+span {
+    color: springgreen;
+}
+
+
+
+#llm_music_recomendation_model {
+    color: springgreen;
+    padding-left: 30%;
+
+
+}
+
+body {
+    background-color: #212121;
+    font-family: "Roboto", serif;
+    padding: 8px;
+}
+
+
 
 #user_search_query_bar {
     position: fixed;
     width: 50%;
-    bottom: 15px;
+    bottom: 25px;
     left: 25%;
-    height: 30px;
+    height: 35px;
     font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border-color: #4CAF50;
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+    outline: none;
+}
+
+
+#user_search_query_bar::placeholder {
+    color: #888;
+
 }
